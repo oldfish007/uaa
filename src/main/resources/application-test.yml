@@ -34,3 +34,5 @@ spring:
       ddl-auto: create-drop
   profiles:
     active: test
+server:
+  port: ${SERVER_PORT:8090}

@@ -26,11 +26,16 @@ public class SecuredRestAPIIntTests {
     public void setup() {
         mvc = MockMvcBuilders
             .webAppContextSetup(context)
-            .apply(springSecurity())
+            .apply(springSecurity()) //需要检查权限的配置
             .build();
     }
 
-    @WithMockUser
+    /** .antMatchers("/api/**").hasRole("USER")
+     * 对于api开头的resource 有角色user 需要认证的 那为什么
+     * apply(springSecurity()) 加了这个配置就需要认证 ，引入@WithMockUser
+     * @throws Exception
+     */
+    @WithMockUser(value="user",roles={"USER"}) //提供一个虚拟用户 默认给的角色就是user
     @Test
     public void givenAuthRequest_shouldSucceedWith200() throws Exception {
         mvc.perform(get("/api/me").contentType(MediaType.APPLICATION_JSON))

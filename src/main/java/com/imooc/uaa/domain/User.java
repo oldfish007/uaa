@@ -34,7 +34,7 @@ public class User implements UserDetails, Serializable {
     @Getter
     @Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增序列
     private Long id;
 
     /**
@@ -132,11 +132,11 @@ public class User implements UserDetails, Serializable {
     @Setter
     @JsonIgnore
     @ManyToMany
-    @Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.JOIN) //使用join方式提高查询性能
     @JoinTable(
         name = "mooc_users_roles",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},//引用自user这个表的外键
+        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})//反向的不是自己的对象，也就是role里面的对象对应的ID
     private Set<Role> authorities;
 
     @Override

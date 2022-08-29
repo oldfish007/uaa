@@ -2,6 +2,7 @@ package com.imooc.uaa.rest;
 
 import com.imooc.uaa.util.SecurityUtil;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +18,10 @@ public class UserResource {
     }
 
     @GetMapping("/principal")
-    public String getCurrentPrincipalName(Principal principal) {
-        return principal.getName();
+    public Principal getCurrentPrincipalName(Principal principal) {
+
+        //return SecurityContextHolder.getContext().getAuthentication();
+        return principal;
     }
 
     @GetMapping("/authentication")

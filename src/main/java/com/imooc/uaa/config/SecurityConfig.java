@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
-            .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(problemSupport))
+            .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(problemSupport))//在认证头里面做一个base64
             ;
     }
 
@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(
                 "/authorize/**",
                 "/error/**",
-                "/h2-console/**");
+                "/h2-console/**");//添加/h2-console这个path 使他可以访问
     }
 
     @Override

@@ -12,6 +12,7 @@ public class SecurityUtil {
     private static final String ANONYMOUS_USER = "anonymous";
 
     public static String getCurrentLogin() {
+        //ofNullable方法() 支持null
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
             .map(Authentication::getPrincipal)
             .map(principal -> {

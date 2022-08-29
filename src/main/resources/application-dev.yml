@@ -6,7 +6,7 @@ logging:
       hibernate: DEBUG
       springframework:
         data: DEBUG
-        jdbc: DEBUG
+        jdbc.core: trace
         security: DEBUG
     web: DEBUG
   pattern:
@@ -16,8 +16,14 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     password: ''
+    #数据库连接URL，为了兼容MYSQL 添加MODE=MySql
+    #;database_to_lower=true 是让表名转为小写
+    #;case_insensitive_identifiers=true 不区分大小写
+    # ;db_close_delay=-1 不自动关闭数据库
     url: jdbc:h2:mem:test;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DB_CLOSE_DELAY=-1
     username: sa
+    #只有嵌入式数据库才会加载resources下面的sql
+    initialization-mode: embedded
   devtools:
     livereload:
       enabled: true
