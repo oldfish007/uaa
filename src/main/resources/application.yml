@@ -18,3 +18,7 @@ spring:
     active: ${SPRING_ACTIVE_PROFILE:dev}
   resources:
     add-mappings: false
+mooc:
+  jwt:
+    access-toke-expire-time: 300000 
+    refresh-toke-expire-time: 2592000000

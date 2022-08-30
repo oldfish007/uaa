@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,6 +22,10 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import java.util.Map;
 
+/**
+ * 表单配置类
+ */
+
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
@@ -27,6 +33,8 @@ import java.util.Map;
 public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final ObjectMapper objectMapper;
+
+    private final DaoAuthenticationProvider daoAuthenticationProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,6 +57,17 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilterAt(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests(authorizeRequests -> authorizeRequests
                 .anyRequest().authenticated());
+    }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+       /* auth
+            .userDetailsService(userDetailsServiceImpl) // 配置 AuthenticationManager 使用 userService
+            .passwordEncoder(passwordEncoder()) // 配置 AuthenticationManager 使用 userService
+            .userDetailsPasswordManager(userDetailsPasswordServiceImpl); // 配置密码自动升级服务*/
+        //后面有几个provider LDAProvider
+        auth.authenticationProvider(daoAuthenticationProvider);
     }
 
     @Override
