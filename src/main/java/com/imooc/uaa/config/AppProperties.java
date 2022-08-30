@@ -18,6 +18,6 @@ public class AppProperties {
         private Long accessTokeExpireTime = 60_000L;
         private Long refreshTokeExpireTime = 30*24*3600*1000L;
         private String header = "Authorization";
-        private String prefix = "Bearer";
+        private String prefix = "Bearer ";
     }
 }

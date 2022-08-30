@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    private AppProperties appProperties;
+    private final AppProperties appProperties;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //检查 JWT Token 是否在 HTTP 报头中
@@ -48,8 +48,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 );
             //如果有 解析token 拆出来 实例化UsernamePasswordAuthenticationToken
             //放到SecurityContext
-            filterChain.doFilter(request,response);
         }
+            filterChain.doFilter(request,response);
     }
 
     private void setupSpringAuthentication(Claims claims) {

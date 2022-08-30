@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final UserDetailsPasswordServiceImpl userDetailsPasswordServiceImpl;
     private final JwtFilter jwtFilter;
-    private final RestAuthenticationFilter restAuthenticationFilter;
+    //private final RestAuthenticationFilter restAuthenticationFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/**").hasRole("USER")
                 .anyRequest().authenticated())
-            .addFilterAt(restAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
+            //.addFilterAt(restAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
